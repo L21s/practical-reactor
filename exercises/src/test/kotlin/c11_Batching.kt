@@ -1,6 +1,7 @@
-import org.junit.jupiter.api.*;
-import reactor.core.publisher.Flux;
-import reactor.test.StepVerifier;
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import reactor.core.publisher.Flux
+import reactor.test.StepVerifier
 
 /**
  * Another way of controlling amount of data flowing is batching.
@@ -19,23 +20,21 @@ import reactor.test.StepVerifier;
  *
  * @author Stefan Dragisic
  */
-public class c11_Batching extends BatchingBase {
-
+class c11_Batching : BatchingBase() {
     /**
      * To optimize disk writing, write data in batches of max 10 items, per batch.
      */
     @Test
-    public void batch_writer() {
+    fun batch_writer() {
         //todo do your changes here
-        Flux<Void> dataStream = null;
-        dataStream();
-        writeToDisk(null);
+        val dataStream: Flux<Void>? = null
+        dataStream()
+//        writeToDisk(null) todo: Uncomment this
 
         //do not change the code below
-        StepVerifier.create(dataStream)
-                    .verifyComplete();
-
-        Assertions.assertEquals(10, diskCounter.get());
+        StepVerifier.create(dataStream!!)
+            .verifyComplete()
+        Assertions.assertEquals(10, diskCounter.get())
     }
 
     /**
@@ -46,30 +45,27 @@ public class c11_Batching extends BatchingBase {
      * Implement this behaviour by using `GroupedFlux`, and knowledge gained from the previous exercises.
      */
     @Test
-    public void command_gateway() {
+    fun command_gateway() {
         //todo: implement your changes here
-        Flux<Void> processCommands = null;
-        inputCommandStream();
-        sendCommand(null);
+        val processCommands: Flux<Void>? = null
+        inputCommandStream()
+//        sendCommand(null) todo: Uncomment this
 
         //do not change the code below
-        StepVerifier.create(processCommands)
-                    .verifyComplete();
+        StepVerifier.create(processCommands!!)
+            .verifyComplete()
     }
-
 
     /**
      * You are implementing time-series database. You need to implement `sum over time` operator. Calculate sum of all
      * metric readings that have been published during one second.
      */
     @Test
-    public void sum_over_time() {
-        Flux<Long> metrics = metrics()
-                //todo: implement your changes here
-                .take(10);
-
+    fun sum_over_time() {
+        val metrics = metrics() //todo: implement your changes here
+            .take(10)
         StepVerifier.create(metrics)
-                    .expectNext(45L, 165L, 255L, 396L, 465L, 627L, 675L, 858L, 885L, 1089L)
-                    .verifyComplete();
+            .expectNext(45L, 165L, 255L, 396L, 465L, 627L, 675L, 858L, 885L, 1089L)
+            .verifyComplete()
     }
 }
